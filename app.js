@@ -3,6 +3,8 @@ const form = document.getElementById("chat-form");
 const input = document.getElementById("user-input");
 const messages = document.getElementById("messages");
 
+const INKI_API = "https://inki-cerebro.d70763712.workers.dev";
+
 function addMessage(text, type) {
   const message = document.createElement("div");
   message.className = "message " + type;
@@ -11,41 +13,31 @@ function addMessage(text, type) {
   messages.scrollTop = messages.scrollHeight;
 }
 
-function getResponse(command) {
-  const text = command.toLowerCase();
+async function askInki(command) {
+  const response = await fetch(INKI_API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: command
+    })
+  });
 
-  if (text.includes("hola")) {
-    return "¡Hola! Estoy listo. ¿Qué vamos a construir hoy?";
+  if (!response.ok) {
+    throw new Error("Error de conexión: " + response.status);
   }
 
-  if (text.includes("hotmart")) {
-    return "Hotmart será uno de mis centros de operaciones. Prepararemos la gestión de productos, tiendas y afiliaciones.";
+  const data = await response.json();
+
+  if (!data.reply) {
+    throw new Error("No llegó respuesta del cerebro.");
   }
 
-  if (text.includes("ventas")) {
-    return "Vamos a trabajar en nuestra estrategia de ventas digitales. Primero organizaremos los productos y los clientes.";
-  }
-
-  if (text.includes("marketing")) {
-    return "Prepararemos campañas, publicaciones y estrategias para llegar a clientes internacionales.";
-  }
-
-  if (text.includes("afiliados")) {
-    return "Vamos a organizar oportunidades de afiliación, productos y comisiones.";
-  }
-
-  if (text.includes("finanzas")) {
-    return "Podremos organizar ingresos, gastos y resultados cuando conectemos nuestras herramientas financieras.";
-  }
-
-  if (text.includes("ayuda")) {
-    return "Puedo conversar sobre ventas, Hotmart, marketing, afiliados, finanzas y gestión. Estamos construyendo mis funciones progresivamente.";
-  }
-
-  return "He recibido tu orden. Todavía estoy en mi versión inicial. Seguiremos incorporando inteligencia artificial y conexiones para poder ejecutar tareas reales.";
+  return data.reply;
 }
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
   const command = input.value.trim();
@@ -54,17 +46,25 @@ form.addEventListener("submit", function(event) {
 
   addMessage(command, "user");
   input.value = "";
+  input.disabled = true;
 
-  const response = getResponse(command);
-
-  setTimeout(function() {
-    addMessage(response, "inki");
-  }, 400);
+  try {
+    const answer = await askInki(command);
+    addMessage(answer, "inki");
+  } catch (error) {
+    addMessage(
+      "Todavía no puedo conectar con mi cerebro. " + error.message,
+      "inki"
+    );
+  } finally {
+    input.disabled = false;
+    input.focus();
+  }
 });
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js")
-      .then(() => console.log("INKI: sistema PWA activo"))
-      .catch(error => console.error("Error PWA:", error));
+      .catch(error => console.error(error));
   });
-      }
+}
