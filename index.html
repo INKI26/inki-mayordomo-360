@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071426">
+  <meta name="description" content="INKI - Tu mayordomo digital inteligente">
+  <title>INKI | MAYORDOMO 360</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">I</div>
+        <div>
+          <h1>INKI</h1>
+          <span>MAYORDOMO 360</span>
+        </div>
+      </div>
+      <div class="status">
+        <span class="status-dot"></span>
+        SISTEMA INICIADO
+      </div>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <p class="eyebrow">TU CENTRO DE MANDO DIGITAL</p>
+        <h2>Hola, bienvenido.</h2>
+        <p>Soy INKI. Estoy aquí para ayudarte a construir y gestionar tu negocio digital.</p>
+      </section>
+
+      <section class="dashboard">
+        <div class="section-heading">
+          <h3>Centro de operaciones</h3>
+          <span>360°</span>
+        </div>
+
+        <div class="modules">
+          <article class="module">
+            <span>🛍️</span>
+            <h4>VENTAS</h4>
+            <p>Productos y clientes</p>
+          </article>
+          <article class="module">
+            <span>📦</span>
+            <h4>TIENDA</h4>
+            <p>Hotmart y productos</p>
+          </article>
+          <article class="module">
+            <span>📢</span>
+            <h4>MARKETING</h4>
+            <p>Promoción y campañas</p>
+          </article>
+          <article class="module">
+            <span>🤝</span>
+            <h4>AFILIADOS</h4>
+            <p>Alianzas y comisiones</p>
+          </article>
+          <article class="module">
+            <span>📊</span>
+            <h4>FINANZAS</h4>
+            <p>Ingresos y resultados</p>
+          </article>
+          <article class="module">
+            <span>⚙️</span>
+            <h4>GESTIÓN</h4>
+            <p>Control y organización</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="assistant">
+        <div class="assistant-heading">
+          <div class="avatar">I</div>
+          <div>
+            <h3>Habla con INKI</h3>
+            <p>Tu asistente principal</p>
+          </div>
+        </div>
+
+        <div id="messages" class="messages">
+          <div class="message inki">
+            ¡Hola! Soy INKI, tu mayordomo digital. ¿Qué tarea vamos a realizar hoy?
+          </div>
+        </div>
+
+        <form id="chat-form">
+          <input id="user-input" type="text"
+            placeholder="Escribe una orden para INKI..."
+            autocomplete="off" required>
+          <button type="submit">Enviar ➤</button>
+        </form>
+
+        <p class="notice">
+          Versión inicial. Las funciones inteligentes y conexiones
+          externas se incorporarán progresivamente.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      INKI © 2026 · MAYORDOMO 360
+      <p>Tu negocio. Tus decisiones. Tu libertad.</p>
+    </footer>
+
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
