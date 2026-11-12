@@ -61,3 +61,10 @@ form.addEventListener("submit", function(event) {
     addMessage(response, "inki");
   }, 400);
 });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("INKI: sistema PWA activo"))
+      .catch(error => console.error("Error PWA:", error));
+  });
+      }
